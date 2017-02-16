@@ -133,7 +133,8 @@ def get_facts(F5, uri):
         uri = "/" + uri
     
     status, result["ansible_facts"]  = F5.genericGET(uri)
-    result["ansible_facts"]["bigip_items"] = result["ansible_facts"].pop("items")   # replace key name of 'items' with 'bigip_items'
+    if 'items' in result.keys():
+      result["ansible_facts"]["bigip_items"] = result["ansible_facts"].pop("items")   # replace key name of 'items' with 'bigip_items'
     return status, result
 
 # ---------------------------------------------------------------------------
